@@ -1,0 +1,3 @@
+rootProject.name = 'geostore_app'
+
+include ':app'
