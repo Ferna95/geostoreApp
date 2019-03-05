@@ -16,7 +16,7 @@ export class Negocio extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      nid: 7,
+      nid: 15,
       activePage: 1,
     }
   }
