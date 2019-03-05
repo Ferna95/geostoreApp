@@ -19,6 +19,7 @@ export class Negocio extends React.Component {
       nid: 15,
       activePage: 1,
     }
+
   }
 
   getCompany(){
@@ -33,7 +34,7 @@ export class Negocio extends React.Component {
   }
 
   componentDidMount(){
-   this.getCompany();
+    this.getCompany();
   }
 
   selectComponent = (activePage) => () => this.setState({activePage})

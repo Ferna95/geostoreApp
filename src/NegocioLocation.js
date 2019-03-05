@@ -5,20 +5,35 @@ import {
   View,
   Image,
 } from 'react-native';
-import { Text} from 'native-base';
+import { Text, Icon} from 'native-base';
 import MapView from "react-native-maps";
+import orangeMarkerImg from './images/Splash.jpg';
 
 
 export class NegocioLocation extends React.Component {
 
   constructor(props) {
     super(props);
+    this.state = {
+      latitude: 0,
+      longitude: 0,
+      error: null,
+    };
   }
 
 
 
   componentDidMount(){
-
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        this.setState({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+          error: null,
+        });
+      },
+      (error) => this.setState({ error: error.message })
+    );
   }
 
 
@@ -47,7 +62,16 @@ export class NegocioLocation extends React.Component {
             longitude: parseFloat(this.props.company[0].field_longitud)}}
             title={this.props.company[0].title}
             description={this.props.company[0].field_direccion}
-         />
+         >
+          <Icon name="ios-pin" style={{color:'#0000FF', fontSize: 40}}/>
+         </MapView.Marker>
+         <MapView.Marker
+            coordinate={{latitude: this.state.latitude,
+            longitude: this.state.longitude}}
+            title='Posición actual'
+            description='Usted se encuentra aquí'
+         >
+         </MapView.Marker>
       </MapView>
      );
    }
