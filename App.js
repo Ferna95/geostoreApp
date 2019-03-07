@@ -2,12 +2,10 @@ import React, { Component } from 'react';
 import { View } from 'react-native';
 import { createDrawerNavigator,createAppContainer,createStackNavigator } from 'react-navigation'
 import { Container, Header, Item, Input, Icon, Button, Text ,Left,Right, Content, Title, List, ListItem, Thumbnail, Body} from 'native-base';
-import {Splash} from './src/Splash';
-import {Negocios} from './src/Negocios';
-import {Ofertas} from './src/Ofertas';
-import {Productos} from './src/Productos';
-import {Explorar} from './src/Explorar';
-import {Negocio} from './src/Negocio';
+import {NegociosIndex} from './src/Negocios';
+import {OfertasIndex} from './src/Ofertas';
+import {ProductosIndex} from './src/Productos';
+import {ExplorarIndex} from './src/Explorar';
 
 class MyHomeScreen extends React.Component {
 
@@ -62,23 +60,20 @@ const MyDrawerNavigator = createDrawerNavigator({
       screen: MyHomeScreen,
    },
    Negocios: {
-      screen: Negocios,
+      screen: NegociosIndex,
    },
    Ofertas: {
-      screen: Ofertas,
+      screen: OfertasIndex,
    },
    Productos: {
-      screen: Productos,
+      screen: ProductosIndex,
    },
    Explorar: {
-      screen: Explorar,
-   },
-   Negocio: {
-      screen: Negocio,
+      screen: ExplorarIndex,
    },
  },
  {
-  initialRouteName: 'Negocio',
+  initialRouteName: 'Negocios',
  }
  );
 

@@ -16,7 +16,7 @@ export class Negocio extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      nid: 15,
+      nid: props.navigation.state.params.company_nid,
       activePage: 1,
     }
 
@@ -53,17 +53,6 @@ export class Negocio extends React.Component {
   render() {
     return (
       <Container>
-        <Header hasSegment>
-          <Left style={{ flexDirection: 'row'}}>
-           <Icon onPress={() => this.props.navigation.openDrawer()} name="md-menu" style={{ color: 'white', marginRight: 15 }} />
-          </Left>
-          <Body>
-            <Title>Negocio</Title>
-          </Body>
-          <Right>
-           <Icon name="md-cart" style={{ color: 'white' }} />
-          </Right>
-        </Header>
         <Segment>
           <Button first active={this.state.activePage === 1}
               onPress={this.selectComponent(1)}>

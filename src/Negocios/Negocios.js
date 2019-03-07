@@ -7,7 +7,7 @@ import {
   Image,
 } from 'react-native';
 import { Container, Header, Item, Input, Icon, Text ,Left,Right, Content, Title, List, ListItem, Thumbnail, Body} from 'native-base';
-
+import {HeaderGeostore} from '.././common/HeaderGeostore';
 export class Negocios extends React.Component {
 
 
@@ -17,6 +17,10 @@ export class Negocios extends React.Component {
       text: '',
     }
   }
+
+  static navigationOptions = {
+    headerTitle: <HeaderGeostore style={{width: 100}} name="NEGOCIOS" />,
+  };
 
   getCompanies(text){
    fetch('http://192.168.0.10:8080/geostore_testing/api/v1/negocios?keys='+(this.state.text)+'&_format=json')
@@ -36,17 +40,6 @@ export class Negocios extends React.Component {
   render() {
     return (
       <Container>
-        <Header>
-          <Left style={{ flexDirection: 'row'}}>
-           <Icon onPress={() => this.props.navigation.openDrawer()} name="md-menu" style={{ color: 'white', marginRight: 15 }} />
-          </Left>
-          <Body>
-            <Title>Negocios</Title>
-          </Body>
-          <Right>
-           <Icon name="md-cart" style={{ color: 'white' }} />
-          </Right>
-        </Header>
         <Header searchBar rounded>
           <Item>
             <Icon name="ios-search" />
@@ -72,7 +65,7 @@ export class Negocios extends React.Component {
                         <Right>
                           <Button
                             title="Ver"
-                            onPress={() => this.props.navigation.navigate('Negocio')}
+                            onPress={() => this.props.navigation.navigate('Negocio',{company_nid: prop.nid})}
                           />
                         </Right>
                       </ListItem>

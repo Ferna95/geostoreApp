@@ -7,8 +7,6 @@ import {
 } from 'react-native';
 import { Text, Icon} from 'native-base';
 import MapView from "react-native-maps";
-import orangeMarkerImg from './images/Splash.jpg';
-
 
 export class NegocioLocation extends React.Component {
 
