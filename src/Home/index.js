@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import { StatusBar } from 'react-native';
 import {createAppContainer, createStackNavigator} from 'react-navigation';
 import {Container} from 'native-base';
-import {Ofertas} from './Ofertas';
+import {HomeScreen} from './HomeScreen';
 import Global from './../common/Global';
 
 const MyStackNavigator = createStackNavigator(
    {
-      Ofertas: {
-         screen: Ofertas,
+      HomeScreen: {
+         screen: HomeScreen,
       },
    },
    {
@@ -23,7 +23,7 @@ const MyStackNavigator = createStackNavigator(
 
 const MyApp = createAppContainer(MyStackNavigator);
 
-export class OfertasIndex extends React.Component {
+export class HomeScreenIndex extends React.Component {
     render(){
       return(
         <Container>
@@ -35,4 +35,4 @@ export class OfertasIndex extends React.Component {
     }
 }//End of App class
 
-export default OfertasIndex;
+export default HomeScreenIndex;

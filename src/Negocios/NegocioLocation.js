@@ -81,6 +81,6 @@ const styles = StyleSheet.create({
         backgroundColor: "#F5FCFF"
     },
     map: {
-        height: 400,
+        flex: 1,
     }
 });

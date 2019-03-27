@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import {
-  Platform,
-  StyleSheet,
-  View,
   Button,
-  Image,
+  StatusBar
 } from 'react-native';
+import Global from './../common/Global';
 import { Container, Header, Item, Input, Icon, Text ,Left,Right, Content, Title, List, ListItem, Thumbnail, Body} from 'native-base';
 import {HeaderGeostore} from '.././common/HeaderGeostore';
 export class Negocios extends React.Component {
@@ -16,6 +14,7 @@ export class Negocios extends React.Component {
     this.state = {
       text: '',
     }
+
   }
 
   static navigationOptions = {
@@ -23,13 +22,15 @@ export class Negocios extends React.Component {
   };
 
   getCompanies(text){
-   fetch('http://192.168.0.10:8080/geostore_testing/api/v1/negocios?keys='+(this.state.text)+'&_format=json')
+   fetch(Global.CONFIGURATION.BASEPATH + 'api/v1/negocios?keys='+(this.state.text)+'&_format=json')
    .then(response => response.json()) 
    .then((responseData) => { 
      this.setState({companies: responseData})
+     console.log(this.state.text);
+     console.log(responseData);
    })
    .catch((err) => { 
-     console.error("err"); 
+     console.error(err); 
    });
   }
 
@@ -40,10 +41,10 @@ export class Negocios extends React.Component {
   render() {
     return (
       <Container>
-        <Header searchBar rounded>
+        <Header searchBar rounded style={{backgroundColor:Global.COLORS.THREE}}>
           <Item>
             <Icon name="ios-search" />
-            <Input placeholder="Search" onBlur={(text) => this.getCompanies()} onChangeText={(text) => {this.setState({text}); }} value={this.state.text} />
+            <Input placeholder="Buscar" onChangeText={(text) => { this.setState({text});text.length >= 3 ? this.getCompanies() : null; }} value={this.state.text} />
             <Icon name="ios-people" />
           </Item>
         </Header>
@@ -56,7 +57,7 @@ export class Negocios extends React.Component {
                     return (
                       <ListItem thumbnail key={key}>
                         <Left>
-                          <Thumbnail square source={{ uri: 'http://192.168.0.10:8080/' + prop.field_image }} />
+                          <Thumbnail square source={{ uri: prop.field_image }} />
                         </Left>
                         <Body>
                           <Text>{prop.title}</Text>

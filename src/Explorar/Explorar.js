@@ -6,9 +6,13 @@ import {
   View,
   Image,
 } from 'react-native';
-
+import {HeaderGeostore} from '.././common/HeaderGeostore';
 
 export class Explorar extends React.Component {
+
+  static navigationOptions = {
+    headerTitle: <HeaderGeostore style={{width: 100}} name="EXPLORAR" />,
+  };
 
   render() {
     return (

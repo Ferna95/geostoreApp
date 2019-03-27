@@ -9,6 +9,15 @@ const MyStackNavigator = createStackNavigator(
          screen: Explorar,
       },
    },
+   {
+    defaultNavigationOptions: {
+      headerTintColor: '#a7d7c5',
+      headerStyle: {
+        backgroundColor: '#1c1124',
+      },
+    },
+  }
+   
 );
 
 const MyApp = createAppContainer(MyStackNavigator);

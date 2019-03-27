@@ -6,8 +6,13 @@ import {
   View,
   Image,
 } from 'react-native';
+import {HeaderGeostore} from '.././common/HeaderGeostore';
 
 export class Productos extends React.Component {
+
+  static navigationOptions = {
+    headerTitle: <HeaderGeostore style={{width: 100}} name="PRODCUTOS" />,
+  };
 
   constructor(props){
     super(props);
@@ -17,14 +22,7 @@ export class Productos extends React.Component {
   }
 
   componentDidMount(){
-    fetch('https://fernandomariscottientornosgraficos.000webhostapp.com/ofertas.json')
-    .then((response) => response.json())
-    .then((responseJson) => {
-      this.setState({ofertas: responseJson});
-    })
-    .catch((error) => {
-      console.error(error);
-    });
+    
   }
 
   render() {

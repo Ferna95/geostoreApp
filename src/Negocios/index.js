@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+import { StatusBar } from 'react-native';
 import {createAppContainer, createStackNavigator} from 'react-navigation';
 import {Container} from 'native-base';
 import {Negocios} from './Negocios';
 import {Negocio} from './Negocio';
+import Global from './../common/Global';
 
 const MyStackNavigator = createStackNavigator(
    {
@@ -15,9 +17,9 @@ const MyStackNavigator = createStackNavigator(
    },
    {
     defaultNavigationOptions: {
-      headerTintColor: '#a7d7c5',
+      headerTintColor: Global.COLORS.THREE,
       headerStyle: {
-        backgroundColor: '#1c1124',
+        backgroundColor: Global.COLORS.ONE,
       },
     },
   }
@@ -29,6 +31,7 @@ export class NegociosIndex extends React.Component {
     render(){
       return(
         <Container>
+        <StatusBar backgroundColor="#000" barStyle="light-content" />
           <MyApp >
           </MyApp >
         </Container>
