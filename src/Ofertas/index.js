@@ -4,11 +4,21 @@ import {createAppContainer, createStackNavigator} from 'react-navigation';
 import {Container} from 'native-base';
 import {Ofertas} from './Ofertas';
 import Global from './../common/Global';
+import {Negocio} from './../Negocios/Negocio';
 
 const MyStackNavigator = createStackNavigator(
    {
       Ofertas: {
          screen: Ofertas,
+         navigationOptions: ({ props }) => ({
+            headerTitle: 'OFERTAS',
+        }),
+      },
+      Negocio:{
+        screen: Negocio,
+        navigationOptions: ({ props }) => ({
+            headerTitle: 'NEGOCIO',
+        }),
       },
    },
    {
@@ -27,9 +37,9 @@ export class OfertasIndex extends React.Component {
     render(){
       return(
         <Container>
-        <StatusBar backgroundColor="#000" barStyle="light-content" />
           <MyApp >
           </MyApp >
+          <StatusBar backgroundColor={Global.COLORS.ZERO} barStyle="light-content" />
         </Container>
       );
     }

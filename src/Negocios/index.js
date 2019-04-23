@@ -10,9 +10,15 @@ const MyStackNavigator = createStackNavigator(
    {
       Negocios: {
          screen: Negocios,
+         navigationOptions: ({ props }) => ({
+            headerTitle: 'NEGOCIOS',
+        }),
       },
       Negocio: {
          screen: Negocio,
+         navigationOptions: ({ props }) => ({
+            headerTitle: 'NEGOCIO',
+        }),
       },
    },
    {
@@ -31,9 +37,9 @@ export class NegociosIndex extends React.Component {
     render(){
       return(
         <Container>
-        <StatusBar backgroundColor="#000" barStyle="light-content" />
           <MyApp >
           </MyApp >
+          <StatusBar backgroundColor={Global.COLORS.ZERO} barStyle="light-content" />
         </Container>
       );
     }

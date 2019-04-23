@@ -1,19 +1,31 @@
 import React, { Component } from 'react';
+import { StatusBar } from 'react-native';
 import {createAppContainer, createStackNavigator} from 'react-navigation';
 import {Container} from 'native-base';
 import {Explorar} from './Explorar';
+import {Negocio} from './../Negocios/Negocio';
+import Global from './../common/Global';
 
 const MyStackNavigator = createStackNavigator(
    {
       Explorar: {
          screen: Explorar,
+         navigationOptions: ({ props }) => ({
+            headerTitle: 'EXPLORAR',
+        }),
+      },
+      Negocio:{
+        screen: Negocio,
+        navigationOptions: ({ props }) => ({
+            headerTitle: 'NEGOCIO',
+        }),
       },
    },
    {
     defaultNavigationOptions: {
-      headerTintColor: '#a7d7c5',
+      headerTintColor: Global.COLORS.THREE,
       headerStyle: {
-        backgroundColor: '#1c1124',
+        backgroundColor: Global.COLORS.ONE,
       },
     },
   }
@@ -28,6 +40,7 @@ export class ExplorarIndex extends React.Component {
         <Container>
           <MyApp >
           </MyApp >
+          <StatusBar backgroundColor={Global.COLORS.ZERO} barStyle="light-content" />
         </Container>
       );
     }

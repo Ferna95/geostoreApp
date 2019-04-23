@@ -5,10 +5,11 @@ import {
   View,
   Image,
   ActivityIndicator,
+  Dimensions
 } from 'react-native';
 import Global from './../common/Global';
 import { Text, Container, Left, Right, Thumbnail, Content, Body, Grid, Col, Row, H1, H2, Separator} from 'native-base';
-
+const { width, height } = Dimensions.get('window');
 
 export class NegocioInformacion extends React.Component {
 
@@ -28,11 +29,11 @@ export class NegocioInformacion extends React.Component {
 
   render() {
     return (
-      <Content>
+      <Content style={{padding: width * 0.1}}>
         {this.state.isLoading ? (<ActivityIndicator size="large" color={Global.COLORS.ONE} />) : null}
-        <Row size={20}>
+        <Row size={20} style={styles.container}>
           <Col size={30}>
-            <Thumbnail large square source={{ uri: Global.CONFIGURATION.SITEURL + this.props.company[0].field_image }} />
+            <Thumbnail style={{borderRadius: 10}} large square source={{ uri: Global.CONFIGURATION.SITEURL + this.props.company[0].field_image }} />
           </Col>
           <Col size={70}>
             <H1>{this.props.company[0].title}</H1>
@@ -63,7 +64,9 @@ export class NegocioInformacion extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center'
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 10,
   },
   horizontal: {
     flexDirection: 'row',

@@ -9,6 +9,9 @@ const MyStackNavigator = createStackNavigator(
    {
       HomeScreen: {
          screen: HomeScreen,
+         navigationOptions: ({ props }) => ({
+            headerTitle: 'GEOSTORE',
+        }),
       },
    },
    {
@@ -27,9 +30,9 @@ export class HomeScreenIndex extends React.Component {
     render(){
       return(
         <Container>
-        <StatusBar backgroundColor="#000" barStyle="light-content" />
           <MyApp >
           </MyApp >
+          <StatusBar backgroundColor={Global.COLORS.ZERO} barStyle="light-content" />
         </Container>
       );
     }

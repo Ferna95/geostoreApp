@@ -4,6 +4,7 @@ import {
   StyleSheet,
   View,
   Image,
+  ActivityIndicator,
 } from 'react-native';
 import Global from './../common/Global';
 import { Container, Header, Item, Input, Icon, Button, Text ,Left,Right, Content, Title, List, ListItem, Thumbnail, Body, Segment} from 'native-base';
@@ -20,6 +21,7 @@ export class Negocio extends React.Component {
     this.state = {
       nid: props.navigation.state.params.company_nid,
       activePage: 1,
+      activity: false,
     };
 
 
@@ -32,10 +34,11 @@ export class Negocio extends React.Component {
   */
   
   getCompany(){
-   fetch(Global.CONFIGURATION.BASEPATH + 'api/v1/negocio_by_nid?nid='+(this.state.nid)+'&_format=json')
+    this.setState({activity: true});
+   fetch(Global.CONFIGURATION.BASEPATH + 'api/v1/negocio_by_nid?nid='+(this.state.nid)+'&_format=json'+ '&rand=' + new Date().getTime())
    .then(response => response.json()) 
    .then((responseData) => { 
-     this.setState({company: responseData});
+     this.setState({company: responseData,activity: false});
    })
    .catch((err) => { 
      console.error("err"); 
@@ -62,7 +65,7 @@ export class Negocio extends React.Component {
   render() {
     return (
       <Container>
-        <Segment style={{backgroundColor:Global.COLORS.THREE, borderBottomColor: '#47315a', borderBottomWidth: 1}}>
+        <Segment style={{backgroundColor:Global.COLORS.THREE, borderBottomColor: Global.COLORS.ONE, borderBottomWidth: 1}}>
           <View style={[styles.viewButton, {justiftyContent:"center"}]}>
             <Button style={styles.button} bending first active={this.state.activePage === 1}
                 onPress={this.selectComponent(1)}>
@@ -82,7 +85,16 @@ export class Negocio extends React.Component {
             </Button>
           </View>
         </Segment>
-        {this._renderComponent()}
+        {
+          this.state.activity ? 
+          (
+            <Content contentContainerStyle={{ justifyContent: 'center', flex: 1 }}>
+              <View style={[styles.containerActivity, styles.horizontal]}>
+                <ActivityIndicator size="large" color={Global.COLORS.ONE} />
+              </View>
+            </Content>
+          ) : this._renderComponent()
+        }
        </Container>
      );
    }
@@ -113,4 +125,13 @@ const styles = StyleSheet.create({
   activeTitle: {
     color: 'red',
   },
+  containerActivity: {
+    flex: 1,
+    justifyContent: 'center'
+  },
+  horizontal: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    padding: 10
+  }
 });
