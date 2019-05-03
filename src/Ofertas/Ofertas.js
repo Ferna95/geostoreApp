@@ -33,6 +33,7 @@ export class Ofertas extends React.Component {
   getOfertas(){
    
    this.setState({activity: true});
+   console.log(Global.CONFIGURATION.BASEPATH + 'api/v1/ofertas?order='+this.state.order+'&latitud='+this.state.latitude+'&longitud='+this.state.longitude+'&range='+this.state.range+'&_format=json'+ '&rand=' + new Date().getTime());
    fetch(Global.CONFIGURATION.BASEPATH + 'api/v1/ofertas?order='+this.state.order+'&latitud='+this.state.latitude+'&longitud='+this.state.longitude+'&range='+this.state.range+'&_format=json'+ '&rand=' + new Date().getTime())
    .then(response => response.json()) 
    .then((responseData) => { 

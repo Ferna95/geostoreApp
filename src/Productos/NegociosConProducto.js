@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import Global from './../common/Global';
 import { Container, Header, Item, Input, Icon, Text ,Left,Right, Content, Title, List, ListItem, Thumbnail, Body} from 'native-base';
-import {HeaderGeostore} from '.././common/HeaderGeostore';
+import StarRating from 'react-native-star-rating';
 
 export class NegociosConProducto extends React.Component {
 
@@ -114,8 +114,33 @@ export class NegociosConProducto extends React.Component {
                             </Left>
                             <Body>
                               <Text>{prop.title}</Text>
-                              <Text note numberOfLines={1}>Dirección: {prop.field_direccion}</Text>
+                              <Text note>Dirección: {prop.field_direccion}</Text>
+                              <View>
+                                {prop.valoracion != 0 ?  
+                                  (
+                                    <View>
+                                      <Text note>Valoración: </Text>
+                                      <View style={{paddingHorizontal: 10}}>
+                                        <StarRating
+                                          disabled={true}
+                                          maxStars={5}
+                                          rating={parseFloat(prop.valoracion)}
+                                          fullStarColor={'gold'}
+                                          starSize={20}
+                                        />
+                                      </View>
+                                    </View>
+                                  )
+                                  : 
+                                  (
+                                    <Text note>N/A</Text>
+                                  )
+                                }
+                              </View>
                             </Body>
+                            <Right>
+                              <Text>{prop.field_precio_visible_producto == 1 ? "$" + prop.field_precio_producto : "N/A"}</Text>
+                            </Right>
                             <Right>
                               <Button
                                 title="Ver"

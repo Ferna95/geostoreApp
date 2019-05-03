@@ -101,7 +101,7 @@ export class NegocioInformacion extends React.Component {
                         <StarRating
                           disabled={true}
                           maxStars={5}
-                          rating={parseInt(prop.field_puntuacion)}
+                          rating={parseFloat(prop.field_puntuacion)}
                           fullStarColor={'gold'}
                           starSize={10}
                         />

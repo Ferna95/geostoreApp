@@ -5,6 +5,7 @@ import {
   ActivityIndicator,
   View,
 } from 'react-native';
+import decode from 'unescape';
 import Global from './../common/Global';
 import { Container, Header, Item, Input, Icon, Text ,Left,Right, Content, Title, List, ListItem, Thumbnail, Row, Body, Col, Button, H2} from 'native-base';
 
@@ -69,7 +70,7 @@ export class NegocioProductos extends React.Component {
                             }
                           </Left>
                           <Body>
-                            <Text>{prop.field_producto}</Text>
+                            <Text>{decode(prop.field_producto)}</Text>
                           </Body>
                           <Right>
                             {
