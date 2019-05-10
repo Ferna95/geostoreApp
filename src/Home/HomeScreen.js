@@ -56,7 +56,7 @@ export class HomeScreen extends React.Component {
                           {
                             this.state.articles.map((article, i) => {
                               return (
-                                <Card style={{backgroundColor: Global.COLORS.THREE, borderColor: Global.COLORS.ONE}}>
+                                <Card key={i} style={{backgroundColor: Global.COLORS.THREE, borderColor: Global.COLORS.ONE}}>
                                   <CardItem style={{backgroundColor: Global.COLORS.THREE, border: 0}}>
                                     <Body>
                                       

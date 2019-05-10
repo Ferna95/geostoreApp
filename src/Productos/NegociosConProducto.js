@@ -8,16 +8,11 @@ import {
   StyleSheet,
 } from 'react-native';
 import Global from './../common/Global';
-import { Container, Header, Item, Input, Icon, Text ,Left,Right, Content, Title, List, ListItem, Thumbnail, Body} from 'native-base';
+import { Container, Header, Item, Fab,Input, H3,Icon, Text ,Left,Right, Content, Title, List, ListItem, Thumbnail, Body} from 'native-base';
 import StarRating from 'react-native-star-rating';
 
 export class NegociosConProducto extends React.Component {
-
-  /*
-  static navigationOptions = {
-    headerTitle: <HeaderGeostore style={{width: 100}} name="NEGOCIOS CERCANOS" />,
-  };
-  */
+  
   constructor(props){
     super(props);
     this.state = {
@@ -25,7 +20,12 @@ export class NegociosConProducto extends React.Component {
       longitude: 0,
       error: null,
       range: 100,
-      activity: false
+      stars: 5,
+      activity: false,
+      active: false,
+      orderByTitle: true,
+      orderByPrice: true,
+      orderByStars: true
     };
   }
 
@@ -52,6 +52,7 @@ export class NegociosConProducto extends React.Component {
       +'&latitud='+(this.state.latitude)
       +'&longitud='+(this.state.longitude)
       +'&range='+(this.state.range)
+      +'&stars='+(this.state.stars)
       +'&_format=json'+ '&rand=' + new Date().getTime())
      .then(response => response.json()) 
      .then((responseData) => { 
@@ -62,19 +63,93 @@ export class NegociosConProducto extends React.Component {
      });
   }
 
+  reoderCompanies(criteria){
+    let negocios;
+    
+    if(criteria == 'title'){
+      negocios = this.state.negocios = this.state.negocios.sort((a,b) => {
+        if(this.state.orderByTitle){
+          if (a.title < b.title) 
+              return -1; 
+          if (a.title > b.title) 
+              return 1; 
+          return 0;
+        }
+        else{
+          if (a.title < b.title) 
+              return 1; 
+          if (a.title > b.title) 
+              return -1; 
+          return 0;
+        }
+      });
+    }
+    else if(criteria == 'stars'){
+      negocios = this.state.negocios.sort((a,b) => {
+        if(this.state.orderByStars){
+          return b.valoracion - a.valoracion;
+        }
+        else{
+          return a.valoracion - b.valoracion;
+        }
+      });
+    }
+    else if(criteria == 'price'){
+      negocios = this.state.negocios.sort((a,b) => {
+        if(this.state.orderByPrice){
+          return b.field_precio_producto - a.field_precio_producto;
+        }
+        else{
+          return a.field_precio_producto - b.field_precio_producto;
+        }
+      });
+    }
+
+    this.setState({negocios: negocios});
+  }
+
   componentDidUpdate(prevProps, prevState){
-    if(this.state.range != prevState.range){
+    if(this.state.range != prevState.range || this.state.stars != prevState.stars){
       this.callNegociosWithProduct();
+    }
+
+    if(this.state.orderByTitle != prevState.orderByTitle){
+      this.reoderCompanies('title');
+    }
+    if(this.state.orderByStars != prevState.orderByStars){
+      this.reoderCompanies('stars');
+    }
+    if(this.state.orderByPrice != prevState.orderByPrice){
+      this.reoderCompanies('price');      
     }
   }
 
   render() {
     return (
       <Container>
-        <Header style={{backgroundColor:Global.COLORS.THREE}}>
-          <Body style={{flexDirection: "row", flex: 1}}>
-            <Title style={{color:Global.COLORS.ONE}}>{this.props.navigation.state.params.product_title}</Title>
+        <Header style={{backgroundColor: Global.COLORS.THREE}}>
+          <Body style={{flexDirection: "row", flex: 1, width: "100%",}}>
+            <H3 style={{color:Global.COLORS.ONE, textAlign:"center" ,width: "100%",}}>
+              {this.props.navigation.state.params.product_title}
+            </H3>
           </Body>
+        </Header>
+        <Header style={{backgroundColor:Global.COLORS.THREE}}>
+          <Item style={{flexDirection: "row", flex: 1}}>
+            <Picker
+              selectedValue={this.state.stars}
+              style={{height: 50,flexDirection: "row",flex: 1}}
+              onValueChange={(itemValue, itemIndex) => {
+                this.setState({stars: itemValue});
+              }
+              }>
+              <Picker.Item label="<= 5 Estrellas" value="5" />
+              <Picker.Item label="<= 4 Estrellas" value="4" />
+              <Picker.Item label="<= 3 Estrellas" value="3" />
+              <Picker.Item label="<= 2 Estrellas" value="2" />
+              <Picker.Item label="<= 1 Estrella" value="1" />
+            </Picker>
+          </Item>
           <Item style={{flexDirection: "row", flex: 1}}>
             <Picker
               selectedValue={this.state.range}
@@ -90,6 +165,7 @@ export class NegociosConProducto extends React.Component {
             </Picker>
           </Item>
         </Header>
+        <StatusBar backgroundColor={Global.COLORS.ZERO} barStyle="light-content" />
         {
           this.state.activity ? 
           (
@@ -157,6 +233,24 @@ export class NegociosConProducto extends React.Component {
             </Content>
           )
         }
+        <Fab
+          active={this.state.active}
+          direction="up"
+          containerStyle={{}}
+          style={{ backgroundColor: Global.COLORS.ONE }}
+          position="bottomRight"
+          onPress={() => this.setState({ active: !this.state.active })}>
+          <Icon name="swap" />
+          {this.state.active ? <Button style={{ backgroundColor: Global.COLORS.ZERO }} onPress={() => this.setState({ orderByTitle: !this.state.orderByTitle , active: false })}>
+            <Text>A</Text>
+          </Button> : null}
+          {this.state.active ? <Button style={{ backgroundColor: Global.COLORS.ZERO }} onPress={() => this.setState({ orderByStars: !this.state.orderByStars , active: false })}>
+            <Icon name="star" />
+          </Button> : null}
+          {this.state.active ? <Button style={{ backgroundColor: Global.COLORS.ZERO }} onPress={() => this.setState({ orderByPrice: !this.state.orderByPrice , active: false })}>
+            <Icon name="cash" />
+          </Button> : null}
+        </Fab>
        </Container>
      );
    }

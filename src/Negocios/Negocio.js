@@ -35,14 +35,17 @@ export class Negocio extends React.Component {
   
   getCompany(){
     this.setState({activity: true});
-   fetch(Global.CONFIGURATION.BASEPATH + 'api/v1/negocio_by_nid?nid='+(this.state.nid)+'&_format=json'+ '&rand=' + new Date().getTime())
-   .then(response => response.json()) 
-   .then((responseData) => { 
-     this.setState({company: responseData,activity: false});
-   })
-   .catch((err) => { 
-     console.error("err"); 
-   });
+    fetch(Global.CONFIGURATION.BASEPATH + 'api/v1/negocio_by_nid?nid='+(this.state.nid)+'&_format=json'+ '&rand=' + new Date().getTime())
+      .then(response => response.json()) 
+      .then((responseData) => { 
+        this.setState({company: responseData,activity: false});
+      })
+      .catch((err) => { 
+        console.error("err"); 
+      });
+
+    fetch(Global.CONFIGURATION.BASEPATH + 'api/v1/insert_company_search?nid='+(this.state.nid)+'&_format=json'+ '&rand=' + new Date().getTime());
+
   }
 
   componentDidMount(){

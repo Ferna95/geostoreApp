@@ -8,13 +8,8 @@ import {
 } from 'react-native';
 import Global from './../common/Global';
 import { Container, Header, Item, Input, Icon, Text ,Left,Right, Content, Title, List, ListItem, Thumbnail, Body} from 'native-base';
-import {HeaderGeostore} from '.././common/HeaderGeostore';
 
 export class Productos extends React.Component {
-
-  static navigationOptions = {
-    headerTitle: <HeaderGeostore style={{width: 100}} name="PRODUCTOS" />,
-  };
 
   constructor(props){
     super(props);
