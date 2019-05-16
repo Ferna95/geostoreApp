@@ -105,8 +105,11 @@ export class NegocioInformacion extends React.Component {
                           fullStarColor={'gold'}
                           starSize={10}
                         />
-                        <Text>
-                           {prop.comment_body}
+                        <Text style={{color: Global.COLORS.ZERO}} >
+                          {prop.comment_body}
+                        </Text>
+                        <Text note>
+                          {prop.name}
                         </Text>
                       </Body>
                     </CardItem>

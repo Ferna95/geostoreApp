@@ -5,6 +5,7 @@ import {
   Text,
   Button,
   ActivityIndicator,
+  AsyncStorage,
   Alert
 } from 'react-native';
 import StarRating from 'react-native-star-rating';
@@ -31,12 +32,15 @@ export class NewComment extends React.Component {
     });
   }
 
-  sendComment(){
+  async sendComment(){
+    let uid = await AsyncStorage.getItem('uid');
+
     if(this.state.starCount && this.state.text){
       this.setState({isLoading: true});
       fetch(Global.CONFIGURATION.BASEPATH + 'api/v1/insert_comment?nid='+(this.props.company)
         +'&stars=' + (this.state.starCount)
-        +'&comment=' + (this.state.text))
+        +'&comment=' + (this.state.text)
+        +'&uid=' + uid)
       .then(response => response.json()) 
       .then((responseData) => { 
         this.setState({isLoading: false});

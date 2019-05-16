@@ -1,60 +1,15 @@
-import React, { Component } from 'react';
-import { StatusBar } from 'react-native';
-import { createDrawerNavigator,createAppContainer,createStackNavigator } from 'react-navigation'
-import { Container, Header, Item, Input, Icon, Button, Text ,Left,Right, Content, Title, List, ListItem, Thumbnail, Body} from 'native-base';
-import {NegociosIndex} from './src/Negocios';
-import {OfertasIndex} from './src/Ofertas';
-import {ProductosIndex} from './src/Productos';
-import {ExplorarIndex} from './src/Explorar';
-import {HomeScreenIndex} from './src/Home';
-import Global from './src/common/Global';
+import { createSwitchNavigator, createStackNavigator, createAppContainer } from 'react-navigation';
+import AuthLoadingScreen from './AuthLoadingScreen';
+import AppStack from './AppStack';
+import AuthStack from './AuthStack';
 
-
-const MyDrawerNavigator = createDrawerNavigator({
-  Geostore:{ 
-    screen: HomeScreenIndex,
+export default createAppContainer(createSwitchNavigator(
+  {
+    AuthLoading: AuthLoadingScreen,
+    App: AppStack,
+    Auth: AuthStack,
   },
-  Negocios: {
-    screen: NegociosIndex,
-  },
-  Ofertas: {
-    screen: OfertasIndex,
-  },
-  Productos: {
-    screen: ProductosIndex,
-  },
-  Explorar: {
-    screen: ExplorarIndex,
-  },
-},
-{
-  intialRouteName: 'Geostore',
-  drawerBackgroundColor: Global.COLORS.THREE,
-  contentOptions: {
-    activeTintColor: Global.COLORS.ONE,
-    itemsContainerStyle: {
-      marginVertical: 0,
-    },
-    iconContainerStyle: {
-      opacity: 1
-    }
+  {
+    initialRouteName: 'AuthLoading',
   }
-});
-
-
- 
-const MyApp = createAppContainer(MyDrawerNavigator);
-
-class App extends React.Component{
-    render(){
-      return(
-        <Container >
-          <MyApp >
-          </MyApp >
-          <StatusBar backgroundColor={Global.COLORS.ZERO} barStyle="light-content" />
-        </Container>
-      );
-    }
-}//End of App class
-
-export default App;
+));
