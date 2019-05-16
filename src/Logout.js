@@ -7,6 +7,7 @@ import {
   View,
   TouchableOpacity,
   Text,
+  Image,
   Button,
 } from 'react-native';
 import Global from './common/Global';
@@ -20,8 +21,15 @@ export default class Logout extends React.Component {
     return (
       <View style={styles.container}>
         <View style={styles.loginContainer}>
+          <Image resizeMode="contain" style={styles.logo} source={require('./images/logo.png')} />
+          <Text style={styles.title}>GEOSTORE</Text>
+        </View>
+        <View style={styles.loginContainer}>
+          <Text style={styles.secondarytitle}>¿Está seguro que desea salir?</Text>
+        </View>
+        <View style={styles.formContainer} >
           <TouchableOpacity style={styles.buttonContainer} onPress={this._signOutAsync}>
-            <Text  style={styles.buttonText}>LOGOUT</Text>
+            <Text style={styles.buttonText}>LOGOUT</Text>
           </TouchableOpacity> 
         </View>
       </View>
@@ -46,8 +54,10 @@ const styles = StyleSheet.create({
         flexGrow: 1,
         justifyContent: 'center'
     },
-    formContainer:{
-
+    secondarytitle:{
+      color: Global.COLORS.FOUR,
+      fontSize: 20,
+      fontWeight: '700',
     },
     logo:{
 
